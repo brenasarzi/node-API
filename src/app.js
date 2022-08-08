@@ -1,4 +1,11 @@
 import express from 'express'
+import chalk from 'chalk'
+import db from "./config/dbConnect.js"
+
+db.on("error", console.log.bind(console, chalk.red("Erro de conexão!")))
+db.once("open", ()=>{
+    console.log(chalk.green('conexão feita com sucesso!'))
+})
 
 const app = express()
 
