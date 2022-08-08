@@ -6,6 +6,7 @@ const router = express.Router()
 // Rotas indicando o método
 router
     .get('/livros', livroController.listarLivros)
+    .get('/livros/busca', livroController.listarLivroPorEditora)
     .get('/livros/:id', livroController.listarLivroPorId)
     .post('/livros', livroController.cadastrarLivro)
     .put('/livros/:id', livroController.atualizarLivro)

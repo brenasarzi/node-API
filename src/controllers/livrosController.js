@@ -4,7 +4,9 @@ class livroController{
 
     // Listando os livros e passando o status 200(carregado com sucesso!)
     static listarLivros = (req, res) => {
-        livros.find((err, livros) => {
+        livros.find()
+        .populate('autor')
+        .exec((err, livros) => {
             res.status(200).json(livros)
         })
     }
@@ -12,13 +14,15 @@ class livroController{
     // Listar um livro pelo id inserido
     static listarLivroPorId = (req, res) => {
         const id = req.params.id
-        livros.findById(id, (err, livros) => {
-            if(err){
-                res.status(400).send({messege: `${err.messege} - Id do livro não localizado.`})
-            } else {
-                res.status(200).send(livros)
-            }
-        })
+        livros.findById(id)
+            .populate('autor', 'nome')
+            .exec((err, livros) => {
+                if(err){
+                    res.status(400).send({messege: `${err.messege} - Id do livro não localizado.`})
+                } else {
+                    res.status(200).send(livros)
+                }
+            })
     }
 
     // Cadastrando um livro
@@ -54,6 +58,13 @@ class livroController{
             } else {
                 res.status(500).send({messege: `${err.messege} - Esse livro não existe`})
             }
+        })
+    }
+
+    static listarLivroPorEditora = (req, res) => {
+        const editora = req.query.editora
+        livros.find({'editora': editora}, {}, (err, livros)=>{
+            res.status(200).send(livros)
         })
     }
 
