@@ -45,6 +45,7 @@ class livroController{
         })
     }
 
+    // Excluir um livro pelo id
     static excluirLivro = (req, res) => {
         const id = req.params.id
         livros.findByIdAndDelete(id, (err) => {
