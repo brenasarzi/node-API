@@ -21,6 +21,18 @@ class livroController{
         })
     }
 
+    // Atualizando um livro pelo id
+    static atualizarLivro = (req, res) => {
+        const id = req.params.id
+        livros.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+            if(!err){
+                res.status(200).send({messege: 'Livro atualizado com sucesso!'})
+            } else {
+                res.status(500).send({messege: `Erro ${err.messege}`})
+            }
+        })
+    }
+
 }
 
 export default livroController
