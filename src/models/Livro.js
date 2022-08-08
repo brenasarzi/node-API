@@ -1,6 +1,6 @@
-import chalk from "chalk";
 import mongoose from "mongoose";
 
+// Schema de um livro || Quais informações um livro tem
 const livroSchema = new mongoose.Schema({
     id: {type: String},
     titulo: {type: String, required: true},
